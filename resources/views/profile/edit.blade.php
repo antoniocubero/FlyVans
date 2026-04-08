@@ -2,6 +2,11 @@
 @include('nav')
 
 <section id='edit-profile-section' class='padding-sides'>
+    @if(session('success'))
+        <div class="success-message">
+            {{ session('success') }}
+        </div>
+    @endif
     <a href='/profile' class='button-main'>Volver</a>
     <x-slot name="header">
         <h2 class="font-semibold text-xl text-gray-800 leading-tight">

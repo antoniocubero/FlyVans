@@ -5,7 +5,7 @@
 
   <h1>Añadir fotos</h1>
 
-  <form action="{{ route('fotos.store', $caravana->id) }}" method="POST" enctype="multipart/form-data">
+  <form action="{{ route('photos.store', $caravana->id) }}" method="POST" enctype="multipart/form-data">
   @csrf
     <div>
       <x-input-label for="fotos" :value="__('Añadir fotos')" />

@@ -6,7 +6,7 @@
     <h1>Crear anuncio</h1>
     <a href="/profile" class='button-main'>Volver</a>
   </div>
-  <form action="{{ route('newAd')}}" method="post" enctype="multipart/form-data">
+  <form action="{{ route('ads.store')}}" method="post" enctype="multipart/form-data">
     @csrf
     <div>
       <x-input-label for="titulo" :value="__('Titulo')" />

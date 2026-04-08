@@ -7,7 +7,6 @@ export function searchInfiniteScroll({ getFiltros, reset = false }) {
 
     if (!limit || !contenedor) return;
 
-    // 🔴 evitar múltiples observers
     if (reset && window.currentObserver) {
         window.currentObserver.disconnect();
     }
@@ -60,6 +59,5 @@ export function searchInfiniteScroll({ getFiltros, reset = false }) {
 
     observer.observe(limit);
 
-    // 🔹 guardar observer globalmente
     window.currentObserver = observer;
 }

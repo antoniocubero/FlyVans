@@ -14,7 +14,7 @@ class CaravanaController extends Controller
     /**
      * Display a listing of the resource.
      */
-    public function editVan(Request $request, Caravana $caravana){
+    public function update(Request $request, Caravana $caravana){
         if ($caravana->id_usuario_propietario !== auth()->id()) {
             abort(404);
         }
@@ -34,7 +34,7 @@ class CaravanaController extends Controller
         return back()->with('success', 'Datos actualizados');
     }
 
-    public function newVan(Request $request){
+    public function store(Request $request){
         $request->validate([
             'marca' => 'required|string|max:100',
             'modelo' => 'required|string|max:100',
@@ -50,10 +50,10 @@ class CaravanaController extends Controller
             'kilometraje' => $request->kilometros
         ]);
 
-        return redirect()->route('fotos.create', $caravana->id);
+        return redirect()->route('photos.create', $caravana->id);
     }
 
-    public function deleteVan(Request $request, Caravana $caravana){
+    public function destroy(Request $request, Caravana $caravana){
         if ($caravana->id_usuario_propietario !== auth()->id()) {
             abort(404);
         }
@@ -72,5 +72,12 @@ class CaravanaController extends Controller
         $caravana->delete();
         
         return redirect()->route('profile')->with('success','Caravana eliminada');
+    }
+
+    public function edit($id){
+        $caravana = auth()->user()->caravanas()->findOrFail($id);
+        $fotos = $caravana->fotos;
+
+        return view('profile.editVan', compact('caravana', 'fotos'));
     }
 }

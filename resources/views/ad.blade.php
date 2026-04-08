@@ -46,7 +46,7 @@
     @auth
       @if($anuncio->caravana->id_usuario_propietario != auth()->id())
         <div>
-          <form action="{{route('booking.new')}}" method='POST'>
+          <form action="{{route('booking.store')}}" method='POST'>
             @csrf
             <div>
               <x-input-label for="_fechas" :value="__('Fechas disponibles')" />

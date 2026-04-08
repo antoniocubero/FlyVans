@@ -10,7 +10,7 @@ use App\Models\Reserva;
 
 class ValoracionController extends Controller
 {
-    public function ratingForm(Reserva $reserva){
+    public function create(Reserva $reserva){
         if ($reserva->id_usuario_reserva !== auth()->id()) {
             abort(404);
         }
@@ -26,7 +26,7 @@ class ValoracionController extends Controller
         return view('auth.ratingForm', ['reserva' => $reserva]);
     }
 
-    public function newRating(Request $request, Reserva $reserva){
+    public function store(Request $request, Reserva $reserva){
         if ($reserva->id_usuario_reserva !== auth()->id()) {
             abort(404);
         }

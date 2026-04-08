@@ -11,7 +11,7 @@ use App\Models\Anuncio;
 
 class ReservaController extends Controller
 {
-    public function cancelBooking(Request $request, Reserva $reserva){
+    public function cancel(Request $request, Reserva $reserva){
         if ($reserva->id_usuario_reserva !== auth()->id() && $reserva->anuncio->caravana->id_usuario_propietario !== auth()->id()) {
             abort(404);
         }
@@ -21,7 +21,7 @@ class ReservaController extends Controller
         return back()->with('success','Reserva cancelada');
     }
 
-    public function acceptBooking(Request $request, Reserva $reserva){
+    public function accept(Request $request, Reserva $reserva){
         if ($reserva->anuncio->caravana->id_usuario_propietario !== auth()->id()) {
             abort(404);
         }
@@ -31,7 +31,7 @@ class ReservaController extends Controller
         return back()->with('success','Reserva aceptada');
     }
 
-    public function viewBooking(Request $request, Reserva $reserva){
+    public function show(Request $request, Reserva $reserva){
         if ($reserva->id_usuario_reserva !== auth()->id() && $reserva->anuncio->caravana->id_usuario_propietario !== auth()->id()) {
             abort(404);
         }
@@ -53,7 +53,7 @@ class ReservaController extends Controller
             'puedeValorar' => $puedeValorar,]);
     }
 
-    public function createBooking(Request $request){
+    public function store(Request $request){
         $request->validate([
             'fechas' => 'required',
             'id_anuncio' => 'required|exists:anuncios,id',

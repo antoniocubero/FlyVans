@@ -19,7 +19,7 @@ class UserController extends Controller
         return view('profile.edit')->with('user',$user);
     }
 
-    public function profileUpdate(Request $request){
+    public function update(Request $request){
         $user = Auth::user();
 
         $request->validate([
@@ -32,6 +32,6 @@ class UserController extends Controller
             'email' => $request->email
         ]);
 
-        return back();
+        return back()->with('success', 'Datos actualizados');
     }
 }

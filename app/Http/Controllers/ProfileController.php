@@ -30,22 +30,6 @@ class ProfileController extends Controller
     }
 
     /**
-     * Update the user's profile information.
-     */
-    public function update(ProfileUpdateRequest $request): RedirectResponse
-    {
-        $request->user()->fill($request->validated());
-
-        if ($request->user()->isDirty('email')) {
-            $request->user()->email_verified_at = null;
-        }
-
-        $request->user()->save();
-
-        return Redirect::route('profile.edit')->with('status', 'profile-updated');
-    }
-
-    /**
      * Delete the user's account.
      */
     public function destroy(Request $request): RedirectResponse
@@ -64,23 +48,5 @@ class ProfileController extends Controller
         $request->session()->regenerateToken();
 
         return Redirect::to('/');
-    }
-
-
-
-    public function editVan($id){
-        $caravana = Auth::user()->caravanas()->findOrFail($id);
-        $fotos = $caravana->fotos()->get();
-        return view('profile.editVan', ['caravana'=>$caravana, 'fotos'=>$fotos]);
-    }
-
-    public function editAd($id){
-        $anuncio = Anuncio::with('caravana')->where('id', $id)->whereHas('caravana', function($query) {
-            $query->where('id_usuario_propietario', Auth::id());
-        })->firstOrFail();
-
-        $caravanas = Auth::user()->caravanas()->get();
-
-        return view('profile.editAd', ['anuncio'=>$anuncio, 'caravanas' => $caravanas]);
     }
 }

@@ -10,7 +10,7 @@ use Illuminate\Validation\Rule;
 
 class AnuncioController extends Controller
 {
-    public function editAd(Request $request, Anuncio $anuncio){
+    public function update(Request $request, Anuncio $anuncio){
         //dd($anuncio);
         if ($anuncio->caravana->id_usuario_propietario !== auth()->id()) {
             abort(404);
@@ -39,13 +39,13 @@ class AnuncioController extends Controller
         return back()->with('success', 'Datos actualizados');
     }
 
-    public function formNewAd(){
+    public function create(){
         $caravanas = auth()->user()->caravanas()->get();
 
         return view('profile.formNewAd')->with('caravanas',$caravanas);
     }
 
-    public function newAd(Request $request){
+    public function store(Request $request){
         $request->validate([
             'titulo' => 'required|string|max:100',
             'descripcion' => 'required|string|max:500',
@@ -69,7 +69,7 @@ class AnuncioController extends Controller
         return redirect()->route('profile')->with('success', 'Anuncio creado');
     }
 
-    public function deleteAd(Request $request, Anuncio $anuncio){
+    public function destroy(Request $request, Anuncio $anuncio){
         //dd($anuncio->caravana);
         if (! $anuncio->caravana || $anuncio->caravana->id_usuario_propietario !== auth()->id()) {
             abort(404);
@@ -78,5 +78,17 @@ class AnuncioController extends Controller
         $anuncio->delete();
         
         return redirect()->route('profile')->with('success','Anuncio eliminado');
+    }
+
+    public function edit(Anuncio $anuncio){
+        $anuncio = Anuncio::with('caravana')
+            ->where('id', $anuncio->id)
+            ->whereHas('caravana', fn($q) =>
+                $q->where('id_usuario_propietario', auth()->id())
+            )->firstOrFail();
+
+        $caravanas = auth()->user()->caravanas;
+
+        return view('profile.editAd', compact('anuncio', 'caravanas'));
     }
 }

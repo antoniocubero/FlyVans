@@ -11,8 +11,9 @@
     <h1>Editar Anuncio</h1>
     <a class='button-main' href="/profile">Volver al perfil</a>
   </div>
-  <form action="{{ route('editAd', $anuncio) }}" method="post" enctype="multipart/form-data">
+  <form action="{{ route('ads.update', $anuncio) }}" method="post" enctype="multipart/form-data">
     @csrf
+    @method('PUT')
     <div>
       <x-input-label for="titulo" :value="__('Titulo')" />
       <x-text-input id="titulo" class="block mt-1 w-full" type="text" name="titulo" :value="$anuncio->titulo" required autofocus autocomplete="titulo" />

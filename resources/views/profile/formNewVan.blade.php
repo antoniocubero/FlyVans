@@ -6,7 +6,7 @@
     <h1>Crear Caravana</h1>
     <a href="/profile" class='button-main'>Volver</a>
   </div>
-  <form action="{{ route('newVan')}}" method="post" enctype="multipart/form-data">
+  <form action="{{ route('vans.store')}}" method="post" enctype="multipart/form-data">
     @csrf
     <div>
       <x-input-label for="marca" :value="__('Marca')" />

@@ -12,7 +12,7 @@ use Illuminate\Support\Facades\Storage;
 
 class FotoController extends Controller
 {
-    public function storeFotos(Request $request, Caravana $caravana){
+    public function store(Request $request, Caravana $caravana){
         if ($caravana->id_usuario_propietario !== auth()->id()) {
             abort(403);
         }
@@ -55,7 +55,7 @@ class FotoController extends Controller
 
 
 
-    public function destroyFoto(Foto $foto){
+    public function destroy(Foto $foto){
         if ($foto->caravana->id_usuario_propietario !== auth()->id()){
             abort(403);
         }
@@ -70,13 +70,13 @@ class FotoController extends Controller
             }
         }
 
-        $foto-borrar();
+        $foto->borrar();
 
         return back()->with('success','Foto eliminada');
     }
 
 
-    public function principal(Foto $foto){
+    public function setMain(Foto $foto){
         Foto::where('id_caravana', $foto->id_caravana)->update(['es_principal' => false]);
 
         $foto->update(['es_principal' => true]);
@@ -84,7 +84,7 @@ class FotoController extends Controller
         return back();
     }
 
-    public function formFotos(Caravana $caravana){
+    public function create(Caravana $caravana){
         if ($caravana->id_usuario_propietario !== auth()->id()) {
             abort(403);
         }

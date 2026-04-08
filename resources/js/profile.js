@@ -50,7 +50,6 @@ document.addEventListener('DOMContentLoaded', () =>{
     //CANCELAR RESERVA
     if(e.target.classList.contains('btn-cancelar-reserva-o')){
       const id = e.target.dataset.id;
-      const btn = e.target;
 
       console.log(id);
 
@@ -61,7 +60,6 @@ document.addEventListener('DOMContentLoaded', () =>{
 
     if(e.target.classList.contains('btn-cancelar-reserva-r')){
       const id = e.target.dataset.id;
-      const btn = e.target;
 
       console.log(id);
 
@@ -75,7 +73,6 @@ document.addEventListener('DOMContentLoaded', () =>{
     //ACEPTAR RESERVA
     if(e.target.classList.contains('btn-aceptar-reserva')){
       const id = e.target.dataset.id;
-      const btn = e.target;
 
       console.log(id);
 
@@ -230,7 +227,7 @@ async function cargarReservasArrendatario(){
         <div class='card ${(reserva.estado != 'Pendiente') ? 'inactiva':''}'>
           <div class='card-left'>
             <h3>Reserva ${reserva.fecha_inicio} - ${reserva.fecha_fin} | ${reserva.estado}</h3>
-            <h4>${reserva.caravana} - ${reserva.coste}€ ${reserva.valoracion_puntuacion !== null ? ` - Valoracion: ${reserva.valoracion_puntuacion} ⭐`:''}</h4>
+            <h4>${reserva.caravana} - ${reserva.coste}€ ${reserva.valoracion_puntuacion !== null ? ` - Valoracion: ${reserva.valoracion_puntuacion} <span class='star'>★</span>`:''}</h4>
           </div>
           <div class='card-right'>
             ${puedeValorar ? `<a href="/rating/${reserva.id}/new">Valorar</a> |` : ''}

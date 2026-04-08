@@ -2,7 +2,7 @@
 @include('nav')
 
 <section id='rating-section' class='padding-sides'>
-  <a href="/profile">Volver</a>
+  <a class='button-main' href="/profile">Volver</a>
 
   <h1>Valorar reserva</h1>
 
@@ -42,6 +42,6 @@
       <x-input-error :messages="$errors->get('comentario')" class="mt-2" />
     </div>
 
-    <button type="submit">Enviar valoración</button>
+    <button class='button-ter' type="submit">Enviar valoración</button>
   </form>
 </section>

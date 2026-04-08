@@ -11,8 +11,9 @@
     <h1>Editar caravana</h1>
     <a class='button-main' href="/profile">Volver</a>
   </div>
-  <form action="{{ route('editVan', $caravana->id) }}" method="post" enctype="multipart/form-data">
+  <form action="{{ route('vans.update', $caravana->id) }}" method="post" enctype="multipart/form-data">
     @csrf
+    @method('PUT')
     <div>
       <x-input-label for="marca" :value="__('Marca')" />
       <x-text-input id="marca" class="block mt-1 w-full" type="text" name="marca" :value="$caravana->marca" required autofocus autocomplete="marca" />
@@ -41,14 +42,14 @@
             <img src="{{$foto->url}}">
           </div>
           <div class="foto-actions">
-            <form action="{{ route('fotos.destroy', $foto->id) }}" method="POST">
+            <form action="{{ route('photos.destroy', $foto->id) }}" method="POST">
               @csrf
               @method('DELETE')
               <button class='button-main' type="submit">Eliminar</button>
             </form>
 
             @if(!$foto->es_principal)
-            <form action="{{ route('fotos.principal', $foto->id) }}" method="POST">
+            <form action="{{ route('photos.main', $foto->id) }}" method="POST">
               @csrf
               <button class='button-main' type="submit">Hacer principal</button>
             </form>
@@ -59,7 +60,7 @@
       @endforeach
     </div>
     <div id='fotos-add'>
-      <form action="{{ route('fotos.store', $caravana->id) }}" method='post' enctype="multipart/form-data">
+      <form action="{{ route('photos.store', $caravana->id) }}" method='post' enctype="multipart/form-data">
         @csrf
         <x-input-label for="fotos" :value="__('Añadir fotos')" />
         <input type="file" name="fotos[]" multiple accept="image/*">

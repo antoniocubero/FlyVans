@@ -754,7 +754,14 @@ footer {
 /* ----------FORM EDIT PROFILE ---------*/
 #edit-profile-section {
   padding-top: 100px;
-  ;
+  .success-message{
+    background-color: var(--light-purple);
+    padding: 8px 16px;
+    border-radius: 10px;
+    color: var(--dark-purple);
+    font-weight: 600;
+    margin-bottom: 20px;
+  }
 }
 
 /*--------FORM EDIT VAN---------*/
@@ -924,29 +931,43 @@ footer {
 #rating-section {
   padding-top: 100px;
 
-  .stars {
-    display: flex;
-    flex-direction: row-reverse;
-    justify-content: flex-end;
+  h1{
+    font-size: 30px;
+    font-weight: bold;
+    margin-bottom: 20px;
+    margin-top: 10px
+  }
 
-    input {
-      display: none;
+  form{
+
+    button{
+      margin-top: 20px;
     }
 
-    label {
-      font-size: 2rem;
-      color: #ccc;
-      cursor: pointer;
-      transition: color 0.2s;
-    }
-
-    label:hover,
-    label:hover~label {
-      color: gold;
-    }
-
-    input:checked~label {
-      color: gold;
+    .stars {
+      display: flex;
+      flex-direction: row-reverse;
+      justify-content: flex-end;
+      
+      input {
+        display: none;
+      }
+      
+      label {
+        font-size: 2rem;
+        color: #ccc;
+        cursor: pointer;
+        transition: color 0.2s;
+      }
+      
+      label:hover,
+      label:hover~label {
+        color: gold;
+      }
+      
+      input:checked~label {
+        color: gold;
+      }
     }
   }
 }
