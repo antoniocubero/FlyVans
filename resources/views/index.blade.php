@@ -1,7 +1,6 @@
 <!DOCTYPE html>
 <html lang="{{ str_replace('_', '-', app()->getLocale()) }}">
   @include('head')
-<body>
   @include('nav')
   <section class='padding-sides' id='main-banner'>
     <div id='banner-image-container'>

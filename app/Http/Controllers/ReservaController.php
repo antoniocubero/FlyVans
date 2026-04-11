@@ -101,6 +101,6 @@ class ReservaController extends Controller
             'coste' => $total,
         ]);
 
-        return redirect()->route('home')->with('success', 'Reserva creada');
+        return redirect()->route('ad.show', $anuncio->id)->with('success', 'Reserva hecha con exito, ve a tu perfil si quieres cancelarla o ver su estado');
     }
 }

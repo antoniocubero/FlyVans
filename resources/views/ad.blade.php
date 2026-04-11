@@ -69,7 +69,7 @@
       @else
         <div class="owner-message">
           <h2>¡Este anuncio es tuyo!</h2><br>
-          <a class='button-main' href="{{route('editAd', $anuncio->id)}}">Editar anuncio</a>
+          <a class='button-main' href="{{route('ads.update', $anuncio->id)}}">Editar anuncio</a>
         </div>
       @endif
     @endauth
@@ -84,7 +84,7 @@
       </div>
 
       <p>Inicia sesión para poder hacer la reserva</p>
-      <button class='button-main' type="button" x-on:click="showLoginForm = true">Iniciar sesion</button>
+      <button id='open-login-ad' class='button-main' type="button">Iniciar sesion</button>
     </div>
     @endguest
   </div>
@@ -95,6 +95,11 @@
 
 @include('footer')
 
+@if(session('success'))
+<script>
+  window.successMessage = "{{ session('success') }}";
+</script>
+@endif
 <script>
   window.fechasOcupadas = @json($fechasOcupadas);
   window.precioDia = {{ $anuncio->precio_dia }};

@@ -1,4 +1,20 @@
+import { mostrarMensaje } from './utils/notifications.js';
+
 document.addEventListener('DOMContentLoaded', () =>{
+  const openBtn = document.getElementById('open-login-ad');
+  const modal = document.getElementById('login-form');
+
+  if(openBtn){
+    openBtn.addEventListener('click', () => {
+      modal.style.display = 'block';
+    });
+  }
+
+  if (window.successMessage) {
+    mostrarMensaje(window.successMessage, 'success');
+  }
+
+
   const miniImages = document.querySelectorAll('#mini-images img')
 
   miniImages.forEach(img => {

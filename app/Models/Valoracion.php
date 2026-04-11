@@ -32,4 +32,25 @@ class Valoracion extends Model
                 : null,
         );
     }
+
+    public function actualizarPuntuacion(){
+        $caravana = $this->reserva->anuncio->caravana;
+
+        $media = Valoracion::whereHas('reserva.anuncio', function ($query) use ($caravana) {
+            $query->where('id_caravana', $caravana->id);
+        })->avg('puntuacion');
+
+        $caravana->nota = $media ?? 0;
+        $caravana->save();
+    }
+
+    protected static function booted(){
+        static::saved(function ($valoracion) {
+            $valoracion->actualizarPuntuacion();
+        });
+
+        static::deleted(function ($valoracion) {
+            $valoracion->actualizarPuntuacion();
+        });
+    }
 }

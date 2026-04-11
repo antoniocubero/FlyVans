@@ -3,6 +3,9 @@
 
 <section id='fotos-section' class="padding-sides">
 
+  <div class="success-message">
+      Caravana creada, añada fotos para que su anuncio sea mas atractivo
+  </div>
   <h1>Añadir fotos</h1>
 
   <form action="{{ route('photos.store', $caravana->id) }}" method="POST" enctype="multipart/form-data">

@@ -28,6 +28,10 @@
 
 
 
-
+@if(session('success'))
+<script>
+  window.successMessage = "{{ session('success') }}";
+</script>
+@endif
 @include('footer')
 @vite('resources/js/profile.js')

@@ -49,7 +49,7 @@ class FotoController extends Controller
         if ($request->input('back')) {
             return back()->with('success', 'Fotos subidas');
         }else{
-            return redirect()->route('profile')->with('success','Fotos subidas');
+            return redirect()->route('profile')->with('success','Fotos subidas con exito');
         }
     }
 

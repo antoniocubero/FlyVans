@@ -1,4 +1,5 @@
-//console.log('JS del perfil cargado');
+import { mostrarMensaje } from './utils/notifications.js';
+
 const csrfToken = document.querySelector('meta[name="csrf-token"]').getAttribute('content');
 
 document.addEventListener('DOMContentLoaded', () =>{
@@ -14,6 +15,10 @@ document.addEventListener('DOMContentLoaded', () =>{
     default:
       cargarCaravanas()
       break;
+  }
+
+  if (window.successMessage) {
+    mostrarMensaje(window.successMessage, 'success');
   }
 
   const btnCaravanas = document.querySelector('#btn-caravanas')
@@ -109,6 +114,7 @@ async function cargarCaravanas(){
     if (!response.ok) {
       throw new Error(`Error HTTP: ${response.status}`);
     }
+
   
     const data = await response.json();
 
@@ -136,7 +142,9 @@ async function cargarCaravanas(){
         `)
     }
   }catch(error){
-    console.error('Error al cargar las caravanas:', error);
+    const titulo = document.querySelector('#profile-content > div > h1')
+    titulo.textContent = 'Ha ocurrido un error';
+    mostrarMensaje('Error al cargar las caravanas, intentelo de nuevo', 'error');
   }
 }
 
@@ -182,7 +190,9 @@ async function cargarAnuncios(){
         `)
     }
   }catch(error){
-    console.error('Error al cargar los anuncios:', error);
+    const titulo = document.querySelector('#profile-content > div > h1')
+    titulo.textContent = 'Ha ocurrido un error';
+    mostrarMensaje('Error al cargar los anuncios, intentelo de nuevo', 'error');
   }
 }
 
@@ -240,7 +250,9 @@ async function cargarReservasArrendatario(){
         `)
     }
   }catch(error){
-    console.error('Error al cargar las reservas:', error);
+    const titulo = document.querySelector('#profile-content > div > h1')
+    titulo.textContent = 'Ha ocurrido un error';
+    mostrarMensaje('Error al cargar las reservas, intentelo de nuevo', 'error');
   }
 }
 
@@ -289,7 +301,9 @@ async function cargarReservasArrendador(){
         `)
     }
   }catch(error){
-    console.error('Error al cargar las reservas:', error);
+    const titulo = document.querySelector('#profile-content > div > h1')
+    titulo.textContent = 'Ha ocurrido un error';
+    mostrarMensaje('Error al cargar las reservas, intentelo de nuevo', 'error');
   }
 }
 
@@ -314,10 +328,11 @@ async function eliminarCaravana(id, boton){
       throw new Error(`Error HTTP: ${response.statusText}`);
     }
 
+    mostrarMensaje('Caravana eliminada', 'success');
     boton.closest('.card').remove();
 
   }catch(error){
-    console.error('Error al eliminar:', error);
+    mostrarMensaje('Error al eliminar la caravana, intentelo de nuevo', 'error');
   }
 }
 
@@ -339,10 +354,11 @@ async function eliminarAnuncio(id, boton) {
       throw new Error(`Error HTTP: ${response.statusText}`);
     } 
 
+    mostrarMensaje('Anuncio eliminado', 'success');
     boton.closest('.card').remove();
 
   } catch (error) {
-    console.error(error);
+    mostrarMensaje('Error al eliminar el anuncio, intentelo de nuevo', 'error');
   }
 }
 
@@ -360,6 +376,8 @@ async function cancelarReserva(id, arrendatario){
       throw new Error(`Error HTTP: ${response.statusText}`);
     }
 
+    mostrarMensaje('Reserva cancelada', 'success');
+
     if(arrendatario){
       cargarReservasArrendatario();
     }else{
@@ -367,7 +385,7 @@ async function cancelarReserva(id, arrendatario){
     }
 
   } catch (error) {
-    console.error(error);
+    mostrarMensaje('Error al cancelar la reserva, intentelo de nuevo', 'error');
   }
 }
 
@@ -387,9 +405,11 @@ async function aceptarReserva(id){
       throw new Error(`Error HTTP: ${response.statusText}`);
     }
 
+    mostrarMensaje('Reserva aceptada', 'success');
+
     cargarReservasArrendador();
   } catch (error) {
-    console.error(error);
+    mostrarMensaje('Error al aceptar la reserva, intentelo de nuevo', 'error');
   }
 }
 
@@ -432,12 +452,6 @@ function tabSelected(valor){
 
 function clearLocalStorage(){
   localStorage.removeItem('profileTab')
-}
-
-function selectButton(){
-  const buttons = document.querySelectorAll('#profile-buttons button')
-  buttons.forEach(btn => btn.classList.remove('selected'))
-  this.classList.add('selected');
 }
 
 function vaciarContenedor(){
