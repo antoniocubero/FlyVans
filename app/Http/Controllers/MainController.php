@@ -36,6 +36,8 @@ class MainController extends Controller
                 return $fechas;
             })->values();
 
-        return view('ad', compact('anuncio', 'fechasOcupadas'));
+        $valoraciones = $anuncio->caravana->valoraciones()->get();
+
+        return view('ad', compact('anuncio', 'fechasOcupadas', 'valoraciones'));
     }
 }

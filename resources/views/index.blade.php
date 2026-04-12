@@ -14,16 +14,7 @@
 
   </section>
 
-    <div id='main-search-form'>
-      <form action="" method="get">
-        @csrf
-        <select name="location" id="location-select">
-          <option value="0">Elije un destino</option>
-        </select>
-        <input type="date" name="" id="">
-        <button type="submit">Buscar</button>
-      </form>
-    </div>
+
 
   <section class='padding-sides' id='main-places'>
     <h1>Descubre nuevos lugares</h1>

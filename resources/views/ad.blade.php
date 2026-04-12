@@ -29,14 +29,12 @@
     @if($anuncio->valoraciones->count() > 0)
     <div class="valoraciones">
       <h3>Reseñas</h3>
-      @foreach($anuncio->valoraciones as $valoracion)
-      <div class="card-valoracion">
-
-          <p><strong>{{ $valoracion->reserva->user->name ?? 'Usuario' }}</strong> - {{ $valoracion->puntuacion }} ★ - {{ $valoracion->fecha }}</p>
-          <p>{{ $valoracion->comentario }}</p>
-
-      </div>
-      @endforeach
+        @foreach($valoraciones as $valoracion)
+            <div class="card-valoracion">
+                <p><strong>{{ $valoracion->reserva->user->name ?? 'Usuario' }}</strong> - {{ $valoracion->puntuacion }} ★ - {{ $valoracion->fecha }}</p>
+                <p>{{ $valoracion->comentario }}</p>
+            </div>
+        @endforeach
     </div>
     @endif
 
@@ -69,7 +67,7 @@
       @else
         <div class="owner-message">
           <h2>¡Este anuncio es tuyo!</h2><br>
-          <a class='button-main' href="{{route('ads.update', $anuncio->id)}}">Editar anuncio</a>
+          <a class='button-main' href="{{route('ads.edit', $anuncio->id)}}">Editar anuncio</a>
         </div>
       @endif
     @endauth

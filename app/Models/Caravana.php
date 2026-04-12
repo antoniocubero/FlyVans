@@ -64,4 +64,11 @@ class Caravana extends Model
 
         return asset('/images/default-img.jpg');
     }
+
+    public function valoraciones(){
+        return Valoracion::whereHas('reserva.anuncio', function ($query) {
+            $query->where('id_caravana', $this->id)
+                ->withTrashed();
+        });
+    }
 }
