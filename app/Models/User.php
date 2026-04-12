@@ -47,8 +47,12 @@ class User extends Authenticatable
         ];
     }
 
-    public function caravanas()
-    {
+
+    public function reservas(){
+        return $this->hasMany(Reserva::class, 'id_usuario_reserva');
+    }
+
+    public function caravanas(){
         return $this->hasMany(Caravana::class, 'id_usuario_propietario');
     }
 }

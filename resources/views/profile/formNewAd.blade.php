@@ -3,8 +3,8 @@
 
 <section id='new-van-section' class='padding-sides'>
   <div id='edit-head'>
-    <h1>Crear anuncio</h1>
     <a href="/profile" class='button-main'>Volver</a>
+    <h1>Crear anuncio</h1>
   </div>
   <form action="{{ route('ads.store')}}" method="post" enctype="multipart/form-data">
     @csrf

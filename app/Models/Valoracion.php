@@ -34,7 +34,9 @@ class Valoracion extends Model
     }
 
     public function actualizarPuntuacion(){
-        $caravana = $this->reserva->anuncio->caravana;
+        $caravana = $this->reserva?->anuncio?->caravana;
+
+        if (!$caravana) return;
 
         $media = Valoracion::whereHas('reserva.anuncio', function ($query) use ($caravana) {
             $query->where('id_caravana', $caravana->id);

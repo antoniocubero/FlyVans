@@ -8,8 +8,8 @@
       </div>
   @endif
   <div id='edit-head'>
-    <h1>Editar Anuncio</h1>
     <a class='button-main' href="/profile">Volver al perfil</a>
+    <h1>Editar Anuncio</h1>
   </div>
   <form action="{{ route('ads.update', $anuncio) }}" method="post" enctype="multipart/form-data">
     @csrf

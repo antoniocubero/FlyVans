@@ -15,8 +15,9 @@ return new class extends Migration
             $table->id();
 
             $table->foreignId('id_usuario_propietario')
+                ->nullable()
                 ->constrained('users')
-                ->onDelete('cascade');
+                ->nullOnDelete();
 
             $table->string('matricula', 20)->unique();
             $table->string('marca', 100);

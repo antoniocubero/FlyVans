@@ -11,7 +11,6 @@ use Illuminate\Validation\Rule;
 class AnuncioController extends Controller
 {
     public function update(Request $request, Anuncio $anuncio){
-        //dd($anuncio);
         if ($anuncio->caravana->id_usuario_propietario !== auth()->id()) {
             abort(404);
         }
@@ -70,7 +69,6 @@ class AnuncioController extends Controller
     }
 
     public function destroy(Request $request, Anuncio $anuncio){
-        //dd($anuncio->caravana);
         if (! $anuncio->caravana || $anuncio->caravana->id_usuario_propietario !== auth()->id()) {
             abort(404);
         }

@@ -5,6 +5,7 @@ namespace App\Http\Controllers\Api;
 use App\Http\Controllers\Controller;
 use Illuminate\Http\Request;
 use App\Models\Anuncio;
+use App\Models\Caravana;
 
 class Anuncios extends Controller
 {
@@ -15,9 +16,9 @@ class Anuncios extends Controller
     function cargarAnuncios(Request $request){
 
         $pagina = $request->get('page', 1);
-        $cantidad = 10;
+        $cantidad = 9;
 
-        $query = Anuncio::with('caravana.fotoPrincipal')->where('estado', 'activo');
+        $query = Anuncio::with('caravana.fotoPrincipal');
 
         if ($request->has('brands')) {
             $query->whereHas('caravana', function($q) use ($request) {
@@ -34,10 +35,29 @@ class Anuncios extends Controller
                 case 'precio-asc':
                     $query->orderBy('precio_dia', 'asc');
                     break;
+
                 case 'precio-desc':
                     $query->orderBy('precio_dia', 'desc');
                     break;
+
+                case 'nota-asc':
+                    $query->orderBy(
+                        Caravana::select('nota')
+                            ->whereColumn('caravanas.id', 'anuncios.id_caravana'),
+                        'asc'
+                    );
+                    break;
+
+                case 'nota-desc':
+                    $query->orderBy(
+                        Caravana::select('nota')
+                            ->whereColumn('caravanas.id', 'anuncios.id_caravana'),
+                        'desc'
+                    );
+                    break;
             }
+        }else{
+            $query->latest();
         }
 
         $data = $query->paginate($cantidad, ['*'], 'page', $pagina);

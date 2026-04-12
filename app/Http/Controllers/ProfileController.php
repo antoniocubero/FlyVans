@@ -40,6 +40,16 @@ class ProfileController extends Controller
 
         $user = $request->user();
 
+        foreach ($user->reservas as $reserva) {
+            $reserva->cancelar();
+        }
+        
+        foreach ($user->caravanas as $caravana) {
+            foreach ($caravana->anuncios as $anuncio) {
+                $anuncio->delete();
+            }
+        }
+
         Auth::logout();
 
         $user->delete();

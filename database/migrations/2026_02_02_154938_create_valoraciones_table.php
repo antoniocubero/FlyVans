@@ -16,7 +16,7 @@ return new class extends Migration
 
             $table->foreignId('id_reserva')
                 ->constrained('reservas')
-                ->onDelete('cascade');
+                ->cascadeOnDelete();
 
             $table->tinyInteger('puntuacion'); // 1-5
             $table->text('comentario')->nullable();

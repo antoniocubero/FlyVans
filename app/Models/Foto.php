@@ -23,9 +23,9 @@ class Foto extends Model
     }
 
     public function borrar(){
-        $path = str_replace('/storage/', 'public/', $this->url);
-        if(Storage::exists($path)){
-            Storage::delete($path);
+        $path = str_replace('/storage/', '', $this->url);
+        if(Storage::disk('public')->exists($path)){
+            Storage::disk('public')->delete($path);
         }
 
         $this->delete();

@@ -4,6 +4,7 @@
   <meta name="csrf-token" content="{{ csrf_token() }}">
   <title>{{ config('app.name') }}</title>
   @vite(['resources/css/app.css', 'resources/css/styles.css', 'resources/js/app.js'])
+  <link rel="icon" href="{{ asset('favicon.ico') }}" type="image/x-icon">
   <link rel="preconnect" href="https://fonts.googleapis.com">
   <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
   <link href="https://fonts.googleapis.com/css2?family=Figtree:ital,wght@0,300..900;1,300..900&family=Google+Sans:ital,opsz,wght@0,17..18,400..700;1,17..18,400..700&family=Jersey+15&display=swap" rel="stylesheet">

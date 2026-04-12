@@ -1,3 +1,4 @@
+import { mostrarMensaje } from './utils/notifications.js';
 export function searchInfiniteScroll({ getFiltros, reset = false }) {
 
     let pagina = 1;
@@ -49,7 +50,7 @@ export function searchInfiniteScroll({ getFiltros, reset = false }) {
                 });
 
             } catch (error) {
-                console.error(error);
+                mostrarMensaje('Error al cargar el contenido, recarge la pagina para intentarlo de nuevo','error');
             }
         }
 

@@ -34,8 +34,7 @@ class MainController extends Controller
                 }
 
                 return $fechas;
-            })
-            ->values();
+            })->values();
 
         return view('ad', compact('anuncio', 'fechasOcupadas'));
     }

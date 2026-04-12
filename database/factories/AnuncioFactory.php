@@ -19,13 +19,36 @@ class AnuncioFactory extends Factory
      */
     public function definition(): array
     {
+
+        $titulos = [
+            'Escapada en caravana totalmente equipada',
+            'Camper perfecta para viajar por España',
+            'Alquiler de caravana lista para ruta',
+            'Viaja con comodidad y libertad',
+        ];
+
+        $descripciones = [
+            'Caravana totalmente equipada, ideal para escapadas en pareja o familia.',
+            'Incluye cocina, cama, almacenamiento y todo lo necesario para viajar cómodo.',
+            'Perfecta para rutas por montaña o costa, muy fácil de conducir.',
+            'Vehículo revisado y listo para disfrutar sin preocupaciones.',
+        ];
+
+        $ciudades = [
+            'Madrid', 'Barcelona', 'Valencia', 'Sevilla', 'Málaga',
+            'Granada', 'Bilbao', 'Zaragoza', 'Alicante', 'Córdoba'
+        ];
+
+        $base = $this->faker->numberBetween(50, 150);
+        $decimales = $this->faker->randomElement([0, 0.5, 0.99]);
+
         return [
-            'id_caravana' => Caravana::inRandomOrder()->first()->id,
-            'titulo' => $this->faker->word(),
-            'descripcion' => $this->faker->sentence(),
-            'precio_dia' => $this->faker->randomFloat(2, 10, 100),
-            'estado' => $this->faker->randomElement(['activo', 'inactivo']),
-            'localizacion' => $this->faker->city(),
+            'id_caravana' => Caravana::doesntHave('anuncios')->inRandomOrder()->first()?->id,
+            'titulo' => $this->faker->randomElement($titulos),
+            'descripcion' => $this->faker->randomElement($descripciones),
+            'precio_dia' => $base + $decimales,
+            'estado' => 'activo',
+            'localizacion' => $this->faker->randomElement($ciudades),
         ];
     }
 }

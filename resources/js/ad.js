@@ -22,7 +22,7 @@ document.addEventListener('DOMContentLoaded', () =>{
   })
 
   const fechasOcupadas = window.fechasOcupadas
-  console.log(fechasOcupadas);
+  //console.log(fechasOcupadas);
 
   flatpickr("#rango_fechas", {
     mode: "range",

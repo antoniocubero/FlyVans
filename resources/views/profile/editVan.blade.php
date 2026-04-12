@@ -8,8 +8,8 @@
       </div>
   @endif
   <div id='edit-head'>
-    <h1>Editar caravana</h1>
     <a class='button-main' href="/profile">Volver</a>
+    <h1>Editar caravana</h1>
   </div>
   <form action="{{ route('vans.update', $caravana->id) }}" method="post" enctype="multipart/form-data">
     @csrf

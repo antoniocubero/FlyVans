@@ -74,6 +74,8 @@
   position: fixed;
   align-items: flex-start;
   gap: 10px;
+  border: 1px solid var(--dark-purple);
+  font-weight: bold;
 
   top: 120px;
   left: 50%;
@@ -363,7 +365,7 @@ footer {
 
 #search-filters {
   height: fit-content;
-  width: 20%;
+  width: 330px;
   margin: 20px;
   background-color: var(--light-grey);
   padding: 20px;
@@ -371,6 +373,9 @@ footer {
 
   position: sticky;
   top: 80px;
+
+  max-height: calc(100vh - 100px); /* ajusta según tu header */
+  overflow-y: auto;
 
   form {
     display: flex;
@@ -485,7 +490,7 @@ footer {
 
     #anuncio-images {
       #main-image {
-        width: 100%;
+        width: 800px;
       }
 
       #mini-images {
@@ -831,6 +836,7 @@ footer {
 
   #edit-head {
     display: flex;
+    flex-direction: column;
     gap: 20px;
     align-items: baseline;
 
@@ -951,6 +957,7 @@ footer {
 
   #edit-head {
     display: flex;
+    flex-direction: column;
     gap: 20px;
     align-items: baseline;
 

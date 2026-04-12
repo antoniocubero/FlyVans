@@ -28,4 +28,6 @@ Route::middleware('auth')->group(function () {
 
     Route::delete('/user', [ProfileController::class, 'destroy'])->name('user.destroy');
     Route::put('password', [PasswordController::class, 'update'])->name('password.update');
+
+    Route::delete('/profile', [ProfileController::class, 'destroy'])->name('profile.destroy');
 });

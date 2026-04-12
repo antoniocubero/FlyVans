@@ -16,13 +16,13 @@ return new class extends Migration
 
             $table->foreignId('id_caravana')
                 ->constrained('caravanas')
-                ->onDelete('cascade');
+                ->cascadeOnDelete();
 
             $table->string('titulo', 150);
             $table->text('descripcion');
             $table->decimal('precio_dia', 8, 2);
 
-            $table->enum('estado', ['activo', 'inactivo', 'reservado'])->default('activo');
+            $table->enum('estado', ['activo', 'inactivo'])->default('activo');
             $table->string('localizacion', 150);
 
             $table->timestamps();

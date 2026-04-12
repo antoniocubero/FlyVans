@@ -15,8 +15,9 @@ return new class extends Migration
             $table->id();
 
             $table->foreignId('id_usuario_reserva')
+                ->nullable()
                 ->constrained('users')
-                ->onDelete('cascade');
+                ->nullOnDelete();
 
             $table->foreignId('id_anuncio')
                 ->constrained('anuncios')

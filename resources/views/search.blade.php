@@ -13,8 +13,8 @@
       <h3>Ordernar por:</h3>
       <select name="orden" id="">
         <option value="">-- Seleccionar --</option>
-        <option value="nota-asc">Valoración (ascendente)</option>
-        <option value="nota-desc">Valoración (descendente)</option>
+        <option value="nota-asc">Nota (ascendente)</option>
+        <option value="nota-desc">Nota (descendente)</option>
         <option value="precio-asc">Precio (ascendente)</option>
         <option value="precio-desc">Precio (descendente)</option>
       </select>

@@ -27,11 +27,22 @@ class ReservaFactory extends Factory
             ->inRandomOrder()
             ->first();
 
-        $fechaInicio = $this->faker->dateTimeBetween('-6 months', '-5 days');
-        $diasReserva = $this->faker->numberBetween(2, 3);
+        $estado = $this->faker->randomElement(['pendiente', 'confirmada', 'cancelada']);
+
+        if ($estado === 'pendiente') {
+            $fechaInicio = $this->faker->dateTimeBetween('now', '+3 months');
+        } else {
+            $fechaInicio = $this->faker->dateTimeBetween('-8 months', '+3 months');
+        }
+
+        $diasReserva = $this->faker->numberBetween(2, 5);
         $fechaFin = Carbon::parse($fechaInicio)->addDays($diasReserva);
 
         $coste = $anuncio->precio_dia * $diasReserva;
+
+        if (!$usuarioReserva || !$anuncio) {
+            return [];
+        }
 
         return [
             'id_usuario_reserva' => $usuarioReserva->id,

@@ -18,11 +18,20 @@ class ValoracionFactory extends Factory
      */
     public function definition(): array
     {
+        $puntuacion = $this->faker->numberBetween(1, 5);
+
+        $comentariosPorPuntuacion = [
+            1 => ['Muy mala experiencia, no repetiría.', 'La caravana estaba en mal estado.'],
+            2 => ['Experiencia regular, mejorable.', 'No estaba como esperaba.'],
+            3 => ['Correcto, sin más.', 'Aceptable pero mejorable.'],
+            4 => ['Muy buena experiencia, recomendable.', 'Todo bastante bien.'],
+            5 => ['Experiencia perfecta, repetiré seguro.', 'Todo impecable.'],
+        ];
+
         return [
-            'id_reserva' => Reserva::inRandomOrder()->first()->id,
-            'puntuacion'=>$this->faker->numberBetween(1, 5),
-            'comentario'=>$this->faker->sentence(),
-            'fecha'=>$this->faker->dateTimeBetween('-6 months', 'now'),
+            'puntuacion' => $puntuacion,
+            'comentario' => $this->faker->randomElement($comentariosPorPuntuacion[$puntuacion]),
+            'fecha' => now(),
         ];
     }
 }
