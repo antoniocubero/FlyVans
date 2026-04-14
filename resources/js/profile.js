@@ -47,7 +47,7 @@ document.addEventListener('DOMContentLoaded', () =>{
       const id = e.target.dataset.id;
       const btn = e.target;
 
-      mostrarConfirmacion('¿Seguro que quieres eliminar este anuncio? Se cancelaran todas las reservas',
+      mostrarConfirmacion('¿Seguro que quieres eliminar este anuncio? Se cancelaran todas las reservas pendientes, las reservas confirmadas se mantendran',
         () => eliminarAnuncio(id, btn)
       );
     }

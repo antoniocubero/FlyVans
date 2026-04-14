@@ -614,29 +614,19 @@ footer {
 }
 
 /*----------- CALENDAIRO ----------*/
-.flatpickr-calendar {
-  border-radius: 12px;
-  box-shadow: 0 10px 25px rgba(0, 0, 0, 0.1);
-
+.flatpickr-day.startRange,
+.flatpickr-day.endRange {
+  background: var(--dark-purple) !important;
+  color: #fff !important;
+  border: 1px solid var(--dark-purple) !important;
 }
 
-.flatpickr-day.selected {
-  background: #000;
-  color: #fff;
+.flatpickr-day.startRange + .endRange,
+.flatpickr-day.endRange:hover,
+.flatpickr-day.startRange:hover {
+  box-shadow: none !important;
 }
 
-.flatpickr-day.inRange {
-  background: #ddd;
-}
-
-.flatpickr-day.disabled {
-  color: #ccc;
-  text-decoration: line-through;
-}
-
-.flatpickr-day.today {
-  border: 1px solid #000;
-}
 
 
 /* ---------- PROFILE ------------*/

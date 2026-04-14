@@ -71,4 +71,28 @@ class Caravana extends Model
                 ->withTrashed();
         });
     }
+
+    public function fechasOcupadas(){
+        $this->loadMissing([
+            'anuncios' => function ($query) {
+                $query->withTrashed();
+            },
+            'anuncios.reservas'
+        ]);
+
+        return $this->anuncios->pluck('reservas')->flatten()->where('estado', 'confirmada')->flatMap(function ($reserva) {
+
+                $fechas = [];
+
+                $inicio = $reserva->fecha_inicio->copy();
+                $fin = $reserva->fecha_fin->copy();
+
+                while ($inicio <= $fin) {
+                    $fechas[] = $inicio->format('Y-m-d');
+                    $inicio->addDay();
+                }
+
+                return $fechas;
+            })->unique()->values();
+    }
 }

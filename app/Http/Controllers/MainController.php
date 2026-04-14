@@ -19,22 +19,7 @@ class MainController extends Controller
 
     public function showAd(Anuncio $anuncio){
 
-        $fechasOcupadas = $anuncio->reservas
-            ->where('estado', 'confirmada')
-            ->flatMap(function ($reserva) {
-
-                $fechas = [];
-
-                $inicio = $reserva->fecha_inicio->copy();
-                $fin = $reserva->fecha_fin->copy();
-
-                while ($inicio <= $fin) {
-                    $fechas[] = $inicio->format('Y-m-d');
-                    $inicio->addDay();
-                }
-
-                return $fechas;
-            })->values();
+        $fechasOcupadas = $anuncio->caravana->fechasOcupadas();
 
         $valoraciones = $anuncio->caravana->valoraciones()->get();
 

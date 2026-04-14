@@ -48,7 +48,7 @@ Para ejecutar el proyecto en local necesitas:
 
 ```bash
 git clone https://github.com/antoniocubero/FlyVans.git
-cd FlyVans
+cd .\flyvans\
 ```
 
 ### 2. Instalar dependencias de PHP
