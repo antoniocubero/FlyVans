@@ -18,6 +18,10 @@ Route::get('/home', fn() => view('index'));
 Route::get('/search', [MainController::class, 'searchDefault'])->name('search');
 Route::get('/ad/{anuncio}', [MainController::class, 'showAd'])->name('ad.show');
 
+Route::get('/cookies', fn()=>view('info.cookies'))->name('cookies');
+Route::get('/privacy', fn()=>view('info.privacy'))->name('privacy');
+Route::get('/how-rent', fn()=>view('info.how-rent'))->name('how-rent');
+Route::get('/how-publish', fn()=>view('info.how-publish'))->name('how-publish');
 
 
 Route::middleware('auth')->group(function () {

@@ -16,7 +16,7 @@ class Anuncios extends Controller
     function cargarAnuncios(Request $request){
 
         $pagina = $request->get('page', 1);
-        $cantidad = 9;
+        $cantidad = 12;
 
         $query = Anuncio::with('caravana.fotoPrincipal');
 
