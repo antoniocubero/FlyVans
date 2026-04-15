@@ -1,7 +1,7 @@
 <div id="cookie-banner" class="fixed bottom-0 left-0 w-full bg-gray-900 text-white p-4 flex justify-center items-center" style="display:none; z-index:1000;">
     <span>
         Usamos cookies para mejorar la experiencia. 
-        <a href="/politica-cookies" class="underline">Más información</a>
+        <a href="{{route('cookies')}}" class="underline">Más información</a>
     </span>
 
     <button onclick="acceptCookies()" class="bg-green-500 px-4 py-2 rounded ml-4">
