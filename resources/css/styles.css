@@ -501,6 +501,7 @@ footer {
       }
 
       #mini-images {
+        max-width: 800px;
         display: flex;
         overflow-x: auto;
         scrollbar-color: var(--primary-purple) transparent;

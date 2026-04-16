@@ -23,6 +23,7 @@ class DatabaseSeeder extends Seeder
 
         User::factory(1000)->create();
         Caravana::factory(200)->create();
+        $this->call(FotoSeeder::class);
         Anuncio::factory(80)->create();
         Reserva::factory(300)->create();
 
@@ -32,7 +33,7 @@ class DatabaseSeeder extends Seeder
             ->doesntHave('valoracion')
             ->get();
 
-        // Crear una valoración para cada reserva
+
         foreach ($reservas as $reserva) {
             Valoracion::factory()->create([
                 'id_reserva' => $reserva->id,
