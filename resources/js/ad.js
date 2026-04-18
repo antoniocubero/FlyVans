@@ -47,12 +47,15 @@ document.addEventListener('DOMContentLoaded', () =>{
         const startFormatted = start.toISOString().split('T')[0]
         const endFormatted = end.toISOString().split('T')[0]
 
-        document.querySelector('#fechas_hidden').value =
-          startFormatted + '|' + endFormatted
+        const fechasHidden = document.querySelector('#fechas_hidden')
+        if (fechasHidden) {
+          fechasHidden.value = startFormatted + '|' + endFormatted
+        }
+        
 
         const diffDays = Math.ceil((end - start) / (1000 * 60 * 60 * 24)) + 1
 
-        const total = diffDays * window.precioDia
+        const total = Math.round(diffDays * window.precioDia * 100) / 100
 
         document.querySelector('#price-total').textContent = total
         document.querySelector('#total-days').textContent = diffDays

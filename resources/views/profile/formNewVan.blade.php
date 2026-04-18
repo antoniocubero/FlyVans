@@ -19,7 +19,7 @@
       <x-input-error :messages="$errors->get('modelo')" class="mt-2" />
     </div>
     <div>
-      <x-input-label for="matricula" :value="__('Matricula')" />
+      <x-input-label for="matricula" :value="__('Matricula (Formato: 0000XXX)')" />
       <x-text-input id="matricula" class="block mt-1 w-full" type="text" name="matricula" :value="old('matricula')" required autofocus autocomplete="matricula" />
       <x-input-error :messages="$errors->get('matricula')" class="mt-2" />
     </div>

@@ -22,13 +22,23 @@ class CaravanaController extends Controller
         $request->validate([
             'marca' => 'required|string|max:100',
             'modelo' => 'required|string|max:100',
-            'kilometros' => 'required|integer|min:0'
+            'kilometros' => 'required|integer|min:0',
+            'matricula' => [
+                'required',
+                'string',
+                'max:20',
+                'unique:caravanas,matricula',
+                'regex:/^[0-9]{4}[BCDFGHJKLMNPRSTVWXYZ]{3}$/i'
+            ],
+        ], [
+            'matricula.regex' => 'La matrícula debe tener el formato 0000XXX (4 números y 3 letras sin vocales).',
         ]);
 
         $caravana->update([
             'marca' => $request->marca,
             'modelo' => $request->modelo,
-            'kilometraje' => $request->kilometros
+            'kilometraje' => $request->kilometros,
+            'matricula' => $request->matricula
         ]);
 
         return back()->with('success', 'Datos actualizados');
@@ -39,7 +49,15 @@ class CaravanaController extends Controller
             'marca' => 'required|string|max:100',
             'modelo' => 'required|string|max:100',
             'kilometros' => 'required|integer|min:0',
-            'matricula' => 'required|string|max:20|unique:caravanas,matricula',
+            'matricula' => [
+                'required',
+                'string',
+                'max:20',
+                'unique:caravanas,matricula',
+                'regex:/^[0-9]{4}[BCDFGHJKLMNPRSTVWXYZ]{3}$/i'
+            ],
+        ], [
+            'matricula.regex' => 'La matrícula debe tener el formato 0000XXX (4 números y 3 letras sin vocales).',
         ]);
 
         $caravana = Caravana::create([

@@ -29,12 +29,20 @@ class CaravanaFactory extends Factory
         $modelo = $this->faker->randomElement($marcasModelos[$marca]);
 
         return [
-            'id_usuario_propietario' => User::inRandomOrder()->first()->id,
+            'id_usuario_propietario' => User::inRandomOrder()->first()->id ?? User::factory(),
             'matricula' => strtoupper($this->faker->bothify('####-???')),
             'marca' => $marca,
             'modelo' => $modelo,
             'kilometraje' => $this->faker->numberBetween(0, 200000),
             'nota' => $this->faker->randomFloat(1, 1, 5),
         ];
+    }
+
+    public function forTest(): static{
+        return $this->state(function () {
+            return [
+                'id_usuario_propietario' => User::factory(),
+            ];
+        });
     }
 }

@@ -51,4 +51,13 @@ class AnuncioFactory extends Factory
             'localizacion' => $this->faker->randomElement($ciudades),
         ];
     }
+
+    public function forTest(): static
+    {
+        return $this->state(function () {
+            return [
+                'id_caravana' => Caravana::factory(),
+            ];
+        });
+    }
 }

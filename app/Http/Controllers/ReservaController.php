@@ -98,7 +98,7 @@ class ReservaController extends Controller
             'fecha_inicio' => $fechaInicio,
             'fecha_fin' => $fechaFin,
             'estado' => 'pendiente',
-            'coste' => $total,
+            'coste' => Reserva::calcularCoste($anuncio, $fechaInicio, $fechaFin),
         ]);
 
         return redirect()->route('ad.show', $anuncio->id)->with('success', 'Reserva hecha con exito, ve a tu perfil si quieres cancelarla o ver su estado');

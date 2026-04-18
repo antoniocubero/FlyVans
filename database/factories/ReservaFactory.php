@@ -21,6 +21,19 @@ class ReservaFactory extends Factory
     public function definition(): array
     {
         $anuncio = Anuncio::with('caravana')->inRandomOrder()->first();
+
+        if (!$anuncio) { //para tests
+            return [
+                'id_usuario_reserva' => User::factory(),
+                'id_anuncio' => Anuncio::factory(),
+                'fecha_inicio' => now(),
+                'fecha_fin' => now()->addDays(3),
+                'estado' => 'pendiente',
+                'coste' => 100,
+            ];
+        }
+
+
         $propietarioId = $anuncio->caravana->id_usuario_propietario;
 
         $usuarioReserva = User::where('id', '!=', $propietarioId)
@@ -52,5 +65,22 @@ class ReservaFactory extends Factory
             'estado' => $this->faker->randomElement(['pendiente', 'confirmada', 'cancelada']),
             'coste' => $coste,
         ];
+    }
+
+    public function forTest(): static
+    {
+        return $this->state(function () {
+
+            $anuncio = Anuncio::factory()->forTest()->create();
+
+            return [
+                'id_usuario_reserva' => User::factory(),
+                'id_anuncio' => $anuncio->id,
+                'fecha_inicio' => now(),
+                'fecha_fin' => now()->addDays(3),
+                'estado' => 'pendiente',
+                'coste' => $anuncio->precio_dia * 3,
+            ];
+        });
     }
 }

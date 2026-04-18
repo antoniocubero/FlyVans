@@ -40,6 +40,11 @@ class Reserva extends Model
         }
     }
 
+    public static function calcularCoste($anuncio, $inicio, $fin){
+        $dias = $inicio->diffInDays($fin) + 1;
+        return $dias * $anuncio->precio_dia;
+    }
+
     // Relaciones
     public function anuncio(){
         return $this->belongsTo(Anuncio::class, 'id_anuncio')->withTrashed();;

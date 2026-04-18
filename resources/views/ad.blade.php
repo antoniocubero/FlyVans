@@ -84,6 +84,10 @@
 
         <x-input-error :messages="$errors->get('fechas')" class="mt-2" />
       </div>
+      <div>
+        <p>Días: <strong id="total-days">0</strong></p>
+        <p>Total: <strong id='price-total'>0</strong>€</p>
+      </div>
 
       <p>Inicia sesión para poder hacer la reserva</p>
       <button id='open-login-ad' class='button-main' type="button">Iniciar sesion</button>
