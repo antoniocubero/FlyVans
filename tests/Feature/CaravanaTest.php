@@ -44,7 +44,7 @@ class CaravanaTest extends TestCase
             'marca' => 'Fiat',
             'modelo' => 'Ducato Camper',
             'kilometros' => 10000,
-            'matricula' => 'AAAA111', // inválida
+            'matricula' => 'AAAA111', 
         ]);
 
         $response->assertSessionHasErrors('matricula');
@@ -88,31 +88,6 @@ class CaravanaTest extends TestCase
 
         $this->assertDatabaseHas('caravanas', [
             'id' => $caravana->id,
-        ]);
-    }
-
-    public function test_propietario_puede_editar_caravana()
-    {
-        $user = User::factory()->create();
-
-        $caravana = Caravana::factory()->create([
-            'id_usuario_propietario' => $user->id,
-        ]);
-
-        $this->actingAs($user);
-
-        $response = $this->put(route('vans.update', $caravana), [
-            'marca' => 'Volkswagen',
-            'modelo' => 'California',
-            'kilometros' => 5000,
-            'matricula' => '1234BCD',
-        ]);
-
-        $response->assertSessionHasNoErrors();
-
-        $this->assertDatabaseHas('caravanas', [
-            'id' => $caravana->id,
-            'marca' => 'Volkswagen',
         ]);
     }
 

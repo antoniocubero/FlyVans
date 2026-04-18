@@ -81,7 +81,7 @@ document.addEventListener('DOMContentLoaded', () =>{
 
       console.log(id);
 
-      mostrarConfirmacion('¿Seguro que quieres aceptar la reserva?', 
+      mostrarConfirmacion('¿Seguro que quieres aceptar la reserva?, Se cancelaran todas las reservas pendientes cuyas fechas coincidan', 
         () => aceptarReserva(id)
       )
     }

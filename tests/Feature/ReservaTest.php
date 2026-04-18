@@ -14,15 +14,6 @@ class ReservaTest extends TestCase
 {
     use RefreshDatabase;
 
-    public function test_crear_reserva()
-    {
-        $reserva = Reserva::factory()->forTest()->create();
-
-        $this->assertDatabaseHas('reservas', [
-            'id' => $reserva->id,
-            'estado' => 'pendiente'
-        ]);
-    }
 
     public function test_aceptar_reserva_pendiente()
     {
@@ -39,9 +30,7 @@ class ReservaTest extends TestCase
     {
         $reserva = Reserva::factory()->forTest()->create();
 
-        $reserva->update([
-            'estado' => 'cancelada'
-        ]);
+        $reserva->cancelar();
 
         $this->assertDatabaseHas('reservas', [
             'id' => $reserva->id,

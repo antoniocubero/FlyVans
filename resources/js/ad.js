@@ -31,7 +31,7 @@ document.addEventListener('DOMContentLoaded', () =>{
 
     disable: [
       function(date) {
-        const d = date.toISOString().split('T')[0];
+        const d = date.toLocaleDateString('en-CA');
         return window.fechasOcupadas.includes(d);
       }
     ],
@@ -44,8 +44,8 @@ document.addEventListener('DOMContentLoaded', () =>{
         const start = selectedDates[0]
         const end = selectedDates[1]
 
-        const startFormatted = start.toISOString().split('T')[0]
-        const endFormatted = end.toISOString().split('T')[0]
+        const startFormatted = start.toLocaleDateString('en-CA')
+        const endFormatted = end.toLocaleDateString('en-CA')
 
         const fechasHidden = document.querySelector('#fechas_hidden')
         if (fechasHidden) {

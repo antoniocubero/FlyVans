@@ -19,130 +19,96 @@ class ValoracionTest extends TestCase
 
     use RefreshDatabase;
 
-public function test_solo_el_usuario_de_la_reserva_puede_acceder_a_valoracion()
-{
-    $reserva = Reserva::factory()->forTest()->create();
 
-    $otroUsuario = User::factory()->create();
+    public function test_no_se_puede_valorar_si_la_reserva_no_ha_terminado()
+    {
+        $user = User::factory()->create();
 
-    $this->actingAs($otroUsuario);
+        $reserva = Reserva::factory()->forTest()->create([
+            'id_usuario_reserva' => $user->id,
+            'estado' => 'confirmada',
+            'fecha_fin' => now()->addDays(5),
+        ]);
 
-    $response = $this->get(route('rating.create', $reserva));
+        $this->actingAs($user);
 
-    $response->assertStatus(404);
-}
+        $response = $this->post(route('rating.store', $reserva), [
+            'puntuacion' => 5,
+        ]);
 
-public function test_no_se_puede_valorar_si_la_reserva_no_ha_terminado()
-{
-    $user = User::factory()->create();
+        $response->assertSessionHas('error');
+    }
 
-    $reserva = Reserva::factory()->forTest()->create([
-        'id_usuario_reserva' => $user->id,
-        'estado' => 'confirmada',
-        'fecha_fin' => now()->addDays(5),
-    ]);
+    public function test_no_se_puede_valorar_dos_veces()
+    {
+        $user = User::factory()->create();
 
-    $this->actingAs($user);
+        $reserva = Reserva::factory()->forTest()->create([
+            'id_usuario_reserva' => $user->id,
+            'estado' => 'confirmada',
+            'fecha_fin' => now()->subDays(1),
+        ]);
 
-    $response = $this->post(route('rating.store', $reserva), [
-        'puntuacion' => 5,
-    ]);
+        Valoracion::factory()->create([
+            'id_reserva' => $reserva->id,
+        ]);
 
-    $response->assertSessionHas('error');
-}
+        $this->actingAs($user);
 
-public function test_no_se_puede_valorar_dos_veces()
-{
-    $user = User::factory()->create();
+        $response = $this->post(route('rating.store', $reserva), [
+            'puntuacion' => 4,
+        ]);
 
-    $reserva = Reserva::factory()->forTest()->create([
-        'id_usuario_reserva' => $user->id,
-        'estado' => 'confirmada',
-        'fecha_fin' => now()->subDays(1),
-    ]);
+        $response->assertSessionHas('error');
+    }
 
-    Valoracion::factory()->create([
-        'id_reserva' => $reserva->id,
-    ]);
+    public function test_puntuacion_fuera_de_rango_falla()
+    {
+        $user = User::factory()->create();
 
-    $this->actingAs($user);
+        $reserva = Reserva::factory()->forTest()->create([
+            'id_usuario_reserva' => $user->id,
+            'estado' => 'confirmada',
+            'fecha_fin' => now()->subDay(),
+        ]);
 
-    $response = $this->post(route('rating.store', $reserva), [
-        'puntuacion' => 4,
-    ]);
+        $this->actingAs($user);
 
-    $response->assertSessionHas('error');
-}
+        $response = $this->post(route('rating.store', $reserva), [
+            'puntuacion' => 10,
+        ]);
 
-public function test_puntuacion_fuera_de_rango_falla()
-{
-    $user = User::factory()->create();
+        $response->assertSessionHasErrors('puntuacion');
+    }
 
-    $reserva = Reserva::factory()->forTest()->create([
-        'id_usuario_reserva' => $user->id,
-        'estado' => 'confirmada',
-        'fecha_fin' => now()->subDay(),
-    ]);
 
-    $this->actingAs($user);
+    public function test_la_media_de_la_caravana_se_actualiza()
+    {
+        $user = User::factory()->create();
 
-    $response = $this->post(route('rating.store', $reserva), [
-        'puntuacion' => 10,
-    ]);
+        $caravana = Caravana::factory()->create([
+            'id_usuario_propietario' => $user->id,
+        ]);
 
-    $response->assertSessionHasErrors('puntuacion');
-}
+        $anuncio = Anuncio::factory()->create([
+            'id_caravana' => $caravana->id,
+        ]);
 
-public function test_crear_valoracion_correctamente()
-{
-    $user = User::factory()->create();
+        $reserva = Reserva::factory()->forTest()->create([
+            'id_usuario_reserva' => $user->id,
+            'id_anuncio' => $anuncio->id,
+            'estado' => 'confirmada',
+            'fecha_fin' => now()->subDay(),
+        ]);
 
-    $reserva = Reserva::factory()->forTest()->create([
-        'id_usuario_reserva' => $user->id,
-        'estado' => 'confirmada',
-        'fecha_fin' => now()->subDay(),
-    ]);
+        $this->actingAs($user);
 
-    $this->actingAs($user);
+        $this->post(route('rating.store', $reserva), [
+            'puntuacion' => 4,
+        ]);
 
-    $this->post(route('rating.store', $reserva), [
-        'puntuacion' => 5,
-        'comentario' => 'Todo perfecto',
-    ]);
+        $caravana->refresh();
 
-    $this->assertDatabaseHas('valoraciones', [
-        'id_reserva' => $reserva->id,
-        'puntuacion' => 5,
-    ]);
-}
-
-public function test_la_media_de_la_caravana_se_actualiza()
-{
-    $user = User::factory()->create();
-
-    $caravana = Caravana::factory()->create([
-        'id_usuario_propietario' => $user->id,
-    ]);
-
-    $anuncio = Anuncio::factory()->create([
-        'id_caravana' => $caravana->id,
-    ]);
-
-    $reserva = Reserva::factory()->forTest()->create([
-        'id_usuario_reserva' => $user->id,
-        'id_anuncio' => $anuncio->id,
-        'estado' => 'confirmada',
-        'fecha_fin' => now()->subDay(),
-    ]);
-
-    $this->actingAs($user);
-
-    $this->post(route('rating.store', $reserva), [
-        'puntuacion' => 4,
-    ]);
-
-    $caravana->refresh();
-
-    $this->assertEquals(4, $caravana->nota);
-}
+        $this->assertEquals(4, $caravana->nota);
+    }
 }

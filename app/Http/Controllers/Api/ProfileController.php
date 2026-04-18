@@ -15,7 +15,7 @@ class ProfileController extends Controller
     public function listarCaravanas(){
         $user = auth()->user();
 
-        $caravanas = $user->caravanas()->with('fotoPrincipal')->get();
+        $caravanas = $user->caravanas()->with('fotoPrincipal')->latest()->get();
 
         return response()->json([
             'title' => 'Caravanas',
@@ -28,7 +28,7 @@ class ProfileController extends Controller
         $anuncios = Anuncio::with('caravana')->whereHas('caravana', 
             function ($query) {
                 $query->where('id_usuario_propietario', auth()->id());
-            })->get();
+            })->latest()->get();
 
         return response()->json([
             'title' => 'Anuncios',
@@ -44,7 +44,7 @@ class ProfileController extends Controller
                 function ($query) {
                     $query->withTrashed()
                         ->where('id_usuario_propietario', auth()->id());
-                })->get();
+                })->latest()->get();
 
         return response()->json([
             'title' => 'Reservas',
@@ -57,7 +57,7 @@ class ProfileController extends Controller
                 'anuncio' => fn($q) => $q->withTrashed(),
                 'anuncio.caravana' => fn($q) => $q->withTrashed(),
                 'valoracion'
-            ])->where('id_usuario_reserva', auth()->id())->get();
+            ])->where('id_usuario_reserva', auth()->id())->latest()->get();
 
         return response()->json([
             'title' => 'Reservas',

@@ -26,7 +26,7 @@ class AdminPanelProvider extends PanelProvider
         return $panel
             ->default()
             ->id('admin')
-            ->path('admin-1993')
+            ->path('admin-dashboard-flyvans')
             ->login()
             ->colors([
                 'primary' => Color::Amber,

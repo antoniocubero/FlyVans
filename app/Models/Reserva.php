@@ -37,6 +37,15 @@ class Reserva extends Model
         if($this->estado == 'pendiente'){
             $this->estado = 'confirmada';
             $this->save();
+            Reserva::where('id_anuncio', $this->id_anuncio)->where('id', '!=', $this->id)->where('estado', 'pendiente')
+                ->where(function($query){
+                    $query->whereBetween('fecha_inicio', [$this->fecha_inicio, $this->fecha_fin])
+                        ->orWhereBetween('fecha_fin', [$this->fecha_inicio, $this->fecha_fin])
+                        ->orWhere(function($q){
+                            $q->where('fecha_inicio', '<=', $this->fecha_inicio)
+                            ->where('fecha_fin', '>=', $this->fecha_fin);
+                        });
+                })->update(['estado' => 'cancelada']);
         }
     }
 
